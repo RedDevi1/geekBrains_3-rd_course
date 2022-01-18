@@ -9,14 +9,20 @@ namespace Exercise_1
     enum TypeOfAccount { checkingAcnt, savingsAcnt, investmentAcnt };           // все типы банковских счетов
     class BankAccount
     {       
-        private long accountNumber;                                              // номер счета
+        //private long accountNumber;                                              // номер счета
         private double balance;                                                 // баланс счета
         private TypeOfAccount typeOfAcnt;                                       // тип банковского счета
+        private static long unicAcntNum;                                        // уникальный номер счета
 
+        public static long GenNewAcntNum()                                      // генерирование нового уникального номера счета
+        {
+            return ++unicAcntNum;
+        }
         public void FillInAccount()                                             // заполнение данных счета
         {
-            Console.WriteLine("Введите номер счета");
-            this.accountNumber = Convert.ToInt64(Console.ReadLine());
+            //Console.WriteLine("Введите номер счета");
+            //this.accountNumber = Convert.ToInt64(Console.ReadLine());
+            GenNewAcntNum();
             Console.WriteLine("Введите баланс счета");
             this.balance = Convert.ToDouble(Console.ReadLine());
             Console.WriteLine("Введите номер типа банковского счета:");
@@ -34,7 +40,7 @@ namespace Exercise_1
         public void ReadAccount()                                               // чтение данных счета
         {
             var curTypeOfAcnt = GetEnum(this.typeOfAcnt);
-            Console.WriteLine($"Номер Вашего счета: {this.accountNumber}");
+            Console.WriteLine($"Номер Вашего счета: {BankAccount.unicAcntNum}");
             Console.WriteLine($"Баланс Вашего счета: {this.balance}");
             Console.WriteLine($"Тип Вашего счета: {curTypeOfAcnt}");
         }
