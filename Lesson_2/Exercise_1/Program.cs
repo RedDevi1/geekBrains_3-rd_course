@@ -6,14 +6,11 @@ namespace Exercise_1
     {
         static void Main(string[] args)
         {
-            BankAccount myBankAcnt_1 = new BankAccount();
-            myBankAcnt_1.FillInAccount();            
+            BankAccount myBankAcnt_1 = new BankAccount(23423.34);                        
             myBankAcnt_1.ReadAccount();
-            BankAccount myBankAcnt_2 = new BankAccount();
-            myBankAcnt_2.FillInAccount();            
+            BankAccount myBankAcnt_2 = new BankAccount(TypeOfAccount.checkingAcnt);                       
             myBankAcnt_2.ReadAccount();
-            BankAccount myBankAcnt_3 = new BankAccount();
-            myBankAcnt_3.FillInAccount();            
+            BankAccount myBankAcnt_3 = new BankAccount(234234234.34, TypeOfAccount.savingsAcnt);                       
             myBankAcnt_3.ReadAccount();
         }
     }

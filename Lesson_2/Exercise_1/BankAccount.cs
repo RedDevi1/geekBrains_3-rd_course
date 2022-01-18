@@ -14,11 +14,30 @@ namespace Exercise_1
         private TypeOfAccount typeOfAcnt;                                       // тип банковского счета
         private static long unicAcntNum;                                        // уникальный номер счета
 
+        public BankAccount(double balance)
+        {
+            this.balance = balance;
+            GenNewAcntNum();
+        }
+
+        public BankAccount(TypeOfAccount typeOfAcnt)
+        {
+            this.typeOfAcnt = typeOfAcnt;
+            GenNewAcntNum();
+        }
+
+        public BankAccount(double balance, TypeOfAccount typeOfAcnt)
+        {
+            this.balance = balance;
+            this.typeOfAcnt = typeOfAcnt;
+            GenNewAcntNum();
+        }
+
         public static long GenNewAcntNum()                                      // генерирование нового уникального номера счета
         {
             return ++unicAcntNum;
         }
-        public void FillInAccount()                                             // заполнение данных счета
+        /*public void FillInAccount()                                             // заполнение данных счета
         {
             //Console.WriteLine("Введите номер счета");
             //this.accountNumber = Convert.ToInt64(Console.ReadLine());
@@ -36,7 +55,7 @@ namespace Exercise_1
                 this.typeOfAcnt = TypeOfAccount.savingsAcnt;
             else
                 this.typeOfAcnt = TypeOfAccount.investmentAcnt;
-        }
+        }*/
         public void ReadAccount()                                               // чтение данных счета
         {
             var curTypeOfAcnt = GetEnum(this.typeOfAcnt);
