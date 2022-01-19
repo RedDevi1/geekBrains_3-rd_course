@@ -14,6 +14,18 @@ namespace Exercise_1
         private TypeOfAccount typeOfAcnt;                                       // тип банковского счета
         private static long unicAcntNum;                                        // уникальный номер счета
 
+        public double Balance
+        {
+            get => this.balance; 
+            set => this.balance = value;
+        }
+        public TypeOfAccount TypeOfAccount
+        {
+            get => this.typeOfAcnt; 
+            set => this.typeOfAcnt = value;
+        }
+        public long UnivAcntNum => unicAcntNum;
+
         public BankAccount(double balance)
         {
             this.balance = balance;
@@ -55,14 +67,14 @@ namespace Exercise_1
                 this.typeOfAcnt = TypeOfAccount.savingsAcnt;
             else
                 this.typeOfAcnt = TypeOfAccount.investmentAcnt;
-        }*/
+        }
         public void ReadAccount()                                               // чтение данных счета
         {
             var curTypeOfAcnt = GetEnum(this.typeOfAcnt);
             Console.WriteLine($"Номер Вашего счета: {BankAccount.unicAcntNum}");
             Console.WriteLine($"Баланс Вашего счета: {this.balance}");
             Console.WriteLine($"Тип Вашего счета: {curTypeOfAcnt}");
-        }
+        }*/
         public static string GetEnum(TypeOfAccount typeOfAcnt)                  // метод расширения для перечисления, переводящий перечисление в строковое значение
         {
             string curTypeOfAcnt = null;                                                  // текущий тип банковского счета
