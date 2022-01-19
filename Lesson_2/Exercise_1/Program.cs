@@ -6,20 +6,40 @@ namespace Exercise_1
     {
         static void Main(string[] args)
         {
-            BankAccount myBankAcnt_1 = new BankAccount(23423.34);
-            myBankAcnt_1.TypeOfAccount = TypeOfAccount.checkingAcnt;
-            Console.WriteLine($"Номер Вашего 1-го счета: {myBankAcnt_1.UnivAcntNum}");
-            Console.WriteLine($"Баланс Вашего 1-го счета: {myBankAcnt_1.Balance}");
-            Console.WriteLine($"Тип Вашего 1-го счета: {myBankAcnt_1.TypeOfAccount}");
-            BankAccount myBankAcnt_2 = new BankAccount(TypeOfAccount.investmentAcnt);
-            myBankAcnt_2.Balance = 1223423.34;
-            Console.WriteLine($"Номер Вашего 2-го счета: {myBankAcnt_2.UnivAcntNum}");
-            Console.WriteLine($"Баланс Вашего 2-го счета: {myBankAcnt_2.Balance}");
-            Console.WriteLine($"Тип Вашего 2-го счета: {myBankAcnt_2.TypeOfAccount}");
-            BankAccount myBankAcnt_3 = new BankAccount(234234234.34, TypeOfAccount.savingsAcnt);           
-            Console.WriteLine($"Номер Вашего 3-го счета: {myBankAcnt_3.UnivAcntNum}");
-            Console.WriteLine($"Баланс Вашего 3-го счета: {myBankAcnt_3.Balance}");
-            Console.WriteLine($"Тип Вашего 3-го счета: {myBankAcnt_3.TypeOfAccount}");
+            var exit = false;
+            BankAccount myBankAcnt = new BankAccount(34234.34, TypeOfAccount.savingsAcnt);           
+            Console.WriteLine($"Номер Вашего счета: {myBankAcnt.UnivAcntNum}");
+            
+            while (!exit)
+            {
+                Console.WriteLine("Если хотите снять деньги со счета, нажмите: G, положить на счет - T, узнать баланс счета - B, выйти - Q");
+                var command = Console.ReadKey();
+                if (command.Key == ConsoleKey.T)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Введите сумму для зачисления");
+                    myBankAcnt.TakeMyMoney(Convert.ToInt64(Console.ReadLine()));
+                }
+                else if (command.Key == ConsoleKey.G)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Введите сумму для снятия со счета");
+                    myBankAcnt.GiveMeMyMoney(Convert.ToInt64(Console.ReadLine()));
+                }
+                else if (command.Key == ConsoleKey.B)
+                {
+                    Console.WriteLine();
+                    Console.WriteLine($"Баланс Вашего счета: {myBankAcnt.Balance}");
+                }
+                else if (command.Key == ConsoleKey.Q)
+                    exit = true;
+                else
+                {
+                    Console.WriteLine();
+                    Console.WriteLine("Неверная команда");
+                }
+            }
+            
         }
     }
 }

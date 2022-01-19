@@ -17,7 +17,7 @@ namespace Exercise_1
         public double Balance
         {
             get => this.balance; 
-            set => this.balance = value;
+            //set => this.balance = value;
         }
         public TypeOfAccount TypeOfAccount
         {
@@ -26,17 +26,17 @@ namespace Exercise_1
         }
         public long UnivAcntNum => unicAcntNum;
 
-        public BankAccount(double balance)
-        {
-            this.balance = balance;
-            GenNewAcntNum();
-        }
+        //public BankAccount(double balance)
+        //{
+        //    this.balance = balance;
+        //    GenNewAcntNum();
+        //}
 
-        public BankAccount(TypeOfAccount typeOfAcnt)
-        {
-            this.typeOfAcnt = typeOfAcnt;
-            GenNewAcntNum();
-        }
+        //public BankAccount(TypeOfAccount typeOfAcnt)
+        //{
+        //    this.typeOfAcnt = typeOfAcnt;
+        //    GenNewAcntNum();
+        //}
 
         public BankAccount(double balance, TypeOfAccount typeOfAcnt)
         {
@@ -49,26 +49,18 @@ namespace Exercise_1
         {
             return ++unicAcntNum;
         }
-        /*public void FillInAccount()                                             // заполнение данных счета
+        public void GiveMeMyMoney(double Sum)                                             // заполнение данных счета
         {
-            //Console.WriteLine("Введите номер счета");
-            //this.accountNumber = Convert.ToInt64(Console.ReadLine());
-            GenNewAcntNum();
-            Console.WriteLine("Введите баланс счета");
-            this.balance = Convert.ToDouble(Console.ReadLine());
-            Console.WriteLine("Введите номер типа банковского счета:");
-            Console.WriteLine("1. Расчетный счет");
-            Console.WriteLine("2. Сберегательный счет");
-            Console.WriteLine("3. Инвестиционный счет");
-            var typeOfAcnt = Convert.ToInt32(Console.ReadLine());
-            if (typeOfAcnt == 1)
-                this.typeOfAcnt = TypeOfAccount.checkingAcnt;
-            else if (typeOfAcnt == 2)
-                this.typeOfAcnt = TypeOfAccount.savingsAcnt;
+            if (Sum > balance)
+                Console.WriteLine("Недостаточно средств на счету для данной операции");
             else
-                this.typeOfAcnt = TypeOfAccount.investmentAcnt;
+                balance -= Sum;
         }
-        public void ReadAccount()                                               // чтение данных счета
+        public void TakeMyMoney(double Sum)
+        {
+            balance += Sum;
+        }
+        /*public void ReadAccount()                                               // чтение данных счета
         {
             var curTypeOfAcnt = GetEnum(this.typeOfAcnt);
             Console.WriteLine($"Номер Вашего счета: {BankAccount.unicAcntNum}");
