@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,13 +8,13 @@ using System.Threading.Tasks;
 namespace Exercise_1
 {
     enum TypeOfAccount { checkingAcnt, savingsAcnt, investmentAcnt };           // все типы банковских счетов
-    class BankAccount
+    class BankAccount : IEnumerable
     {       
         //private long accountNumber;                                              // номер счета
         private double balance;                                                 // баланс счета
         private TypeOfAccount typeOfAcnt;                                       // тип банковского счета
         private static long unicAcntNum;                                        // уникальный номер счета
-
+        private static List<BankAccount> bankAccounts;                          // список банковских счетов 
         public double Balance
         {
             get => this.balance; 
@@ -44,6 +45,7 @@ namespace Exercise_1
             this.typeOfAcnt = typeOfAcnt;
             GenNewAcntNum();
         }
+        public IEnumerator GetEnumerator() => bankAccounts.GetEnumerator();
 
         public static long GenNewAcntNum()                                      // генерирование нового уникального номера счета
         {
@@ -59,6 +61,16 @@ namespace Exercise_1
         public void TakeMyMoney(double Sum)
         {
             balance += Sum;
+        }
+        public void Order (BankAccount source, BankAccount receiver, double sum)
+        {
+            if (source.balance < sum)
+                Console.WriteLine("Недостаточно средств на счету для перевода");
+            else
+            {
+                source.balance -= sum;
+                receiver.balance += sum;
+            }
         }
         /*public void ReadAccount()                                               // чтение данных счета
         {
