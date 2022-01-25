@@ -8,13 +8,14 @@ using System.Threading.Tasks;
 namespace Exercise_1
 {
     enum TypeOfAccount { checkingAcnt, savingsAcnt, investmentAcnt };           // все типы банковских счетов
-    class BankAccount : IEnumerable
+    class BankAccount
     {       
         //private long accountNumber;                                              // номер счета
         private double balance;                                                 // баланс счета
         private TypeOfAccount typeOfAcnt;                                       // тип банковского счета
+        private long acntNum;
         private static long unicAcntNum;                                        // уникальный номер счета
-        private static List<BankAccount> bankAccounts;                          // список банковских счетов 
+ 
         public double Balance
         {
             get => this.balance; 
@@ -27,6 +28,10 @@ namespace Exercise_1
         }
         public long UnivAcntNum => unicAcntNum;
 
+        public long AcntNum
+        {
+            get => this.acntNum;
+        }
         //public BankAccount(double balance)
         //{
         //    this.balance = balance;
@@ -44,8 +49,8 @@ namespace Exercise_1
             this.balance = balance;
             this.typeOfAcnt = typeOfAcnt;
             GenNewAcntNum();
+            acntNum = unicAcntNum;
         }
-        public IEnumerator GetEnumerator() => bankAccounts.GetEnumerator();
 
         public static long GenNewAcntNum()                                      // генерирование нового уникального номера счета
         {
