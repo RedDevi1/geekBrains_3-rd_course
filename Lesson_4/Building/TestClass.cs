@@ -14,7 +14,19 @@ namespace Building
             Creator.CreateBuild(80, 20, 240);
             Creator.CreateBuild(100, 25, 300, 3);
             foreach (var builds in Creator.BuildsTable.Values)
-                Console.WriteLine(builds.);
+            {
+                Build build = (Build)builds;
+                build.PrintDataOfBuild();
+                Console.WriteLine();
+            }
+
+            Creator.DeleteBuild(2);
+            foreach (var builds in Creator.BuildsTable.Values)
+            {
+                Build build = (Build)builds;
+                build.PrintDataOfBuild();
+                Console.WriteLine();
+            }
         }
     }
 }

@@ -15,14 +15,14 @@ namespace Building
         {
             get => this.numOfBuild;
         }
-        internal Build(double heightOfBuild, int numOfStoreys)
+        public Build(double heightOfBuild, int numOfStoreys)
         {
             GenNumOfBuild();
             numOfBuild = lastNumOfBuild;
             this.heightOfBuild = heightOfBuild;
             this.numOfStoreys = numOfStoreys;
         }
-        internal Build(double heightOfBuild, int numOfStoreys, int numOfFlats)
+        public Build(double heightOfBuild, int numOfStoreys, int numOfFlats)
         {
             GenNumOfBuild();
             numOfBuild = lastNumOfBuild;
@@ -30,7 +30,7 @@ namespace Building
             this.numOfStoreys = numOfStoreys;
             this.numOfFlats = numOfFlats;
         }
-        internal Build(double heightOfBuild, int numOfStoreys, int numOfFlats, int numOfEntrances)
+        public Build(double heightOfBuild, int numOfStoreys, int numOfFlats, int numOfEntrances)
         {
             GenNumOfBuild();
             numOfBuild = lastNumOfBuild;
@@ -40,17 +40,6 @@ namespace Building
             this.numOfEntrances = numOfEntrances;
         }
 
-        //public void FillInDataOfBuild()
-        //{
-        //    Console.WriteLine("Введите высоту дома");
-        //    this.heightOfBuild = double.Parse(Console.ReadLine());
-        //    Console.WriteLine("Введите количество этажей дома");
-        //    this.numOfStoreys = int.Parse(Console.ReadLine());
-        //    Console.WriteLine("Введите количество квартир в доме");
-        //    this.numOfFlats = int.Parse(Console.ReadLine());
-        //    Console.WriteLine("Введите количество парадных в доме");
-        //    this.numOfEntrances = int.Parse(Console.ReadLine());
-        //}
         public void PrintDataOfBuild()
         {
             Console.WriteLine($"Номер дома: {numOfBuild}");
