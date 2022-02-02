@@ -7,43 +7,26 @@ using System.Threading.Tasks;
 
 namespace Exercise_1
 {
-    enum TypeOfAccount { checkingAcnt, savingsAcnt, investmentAcnt };           // все типы банковских счетов
-    class BankAccount
-    {       
-        //private long accountNumber;                                              // номер счета
+    
+    public enum TypeOfAccount { CheckingAcnt, SavingsAcnt, InvestmentAcnt };           // все типы банковских счетов
+    public class BankAccount
+    {                                                    
         private double balance;                                                 // баланс счета
         private TypeOfAccount typeOfAcnt;                                       // тип банковского счета
-        private long acntNum;
+        private long acntNum;                                                   // номер счета
         private static long unicAcntNum;                                        // уникальный номер счета
  
-        public double Balance
-        {
-            get => this.balance; 
-            //set => this.balance = value;
-        }
-        public TypeOfAccount TypeOfAccount
-        {
-            get => this.typeOfAcnt; 
-            set => this.typeOfAcnt = value;
-        }
+        public double Balance => this.balance;
+       
+        public TypeOfAccount TypeOfAccount => this.typeOfAcnt;
+       
         public long UnivAcntNum => unicAcntNum;
 
         public long AcntNum
         {
             get => this.acntNum;
         }
-        //public BankAccount(double balance)
-        //{
-        //    this.balance = balance;
-        //    GenNewAcntNum();
-        //}
-
-        //public BankAccount(TypeOfAccount typeOfAcnt)
-        //{
-        //    this.typeOfAcnt = typeOfAcnt;
-        //    GenNewAcntNum();
-        //}
-
+        
         public BankAccount(double balance, TypeOfAccount typeOfAcnt)
         {
             this.balance = balance;
@@ -51,22 +34,39 @@ namespace Exercise_1
             GenNewAcntNum();
             acntNum = unicAcntNum;
         }
-
-        public static long GenNewAcntNum()                                      // генерирование нового уникального номера счета
+        /// <summary>
+        /// генерирование нового уникального номера счета
+        /// </summary>
+        /// <returns>уникальный номер счета</returns>
+        public static long GenNewAcntNum()
         {
             return ++unicAcntNum;
         }
-        public void GiveMeMyMoney(double Sum)                                             // заполнение данных счета
+        /// <summary>
+        /// перевод средств со счета
+        /// </summary>
+        /// <param name="Sum"></param>
+        public void GiveMeMyMoney(double Sum)
         {
             if (Sum > balance)
-                Console.WriteLine("Недостаточно средств на счету для данной операции");
+                throw new NotImplementedException($"недостаточно средств на счете: {this.acntNum}");
             else
                 balance -= Sum;
         }
+        /// <summary>
+        /// зачисление средств на счет
+        /// </summary>
+        /// <param name="Sum"></param>
         public void TakeMyMoney(double Sum)
         {
             balance += Sum;
         }
+        /// <summary>
+        /// метод перевода средств между счетами
+        /// </summary>
+        /// <param name="source">счет источника перевода</param>
+        /// <param name="receiver">счет получателя перевода</param>
+        /// <param name="sum">сумма перевода</param>
         public void Order (BankAccount source, BankAccount receiver, double sum)
         {
             if (source.balance < sum)
@@ -77,23 +77,76 @@ namespace Exercise_1
                 receiver.balance += sum;
             }
         }
-        /*public void ReadAccount()                                               // чтение данных счета
+        /// <summary>
+        /// метод для перечисления, переводящий перечисление в строковое значение
+        /// </summary>
+        /// <param name="typeOfAcnt">тип банковского счета</param>
+        /// <returns></returns>
+        public static string GetEnum(TypeOfAccount typeOfAcnt) 
         {
-            var curTypeOfAcnt = GetEnum(this.typeOfAcnt);
-            Console.WriteLine($"Номер Вашего счета: {BankAccount.unicAcntNum}");
-            Console.WriteLine($"Баланс Вашего счета: {this.balance}");
-            Console.WriteLine($"Тип Вашего счета: {curTypeOfAcnt}");
-        }*/
-        public static string GetEnum(TypeOfAccount typeOfAcnt)                  // метод расширения для перечисления, переводящий перечисление в строковое значение
-        {
-            string curTypeOfAcnt = null;                                                  // текущий тип банковского счета
-            if (typeOfAcnt == TypeOfAccount.checkingAcnt)
-                curTypeOfAcnt = "Расчетный";
-            else if (typeOfAcnt == TypeOfAccount.savingsAcnt)
-                curTypeOfAcnt = "Сберегательный";
-            else
-                curTypeOfAcnt = "Инвестиционный";
+            string curTypeOfAcnt = null;                                                    // текущий тип банковского счета
+            switch (typeOfAcnt)
+            {
+                case TypeOfAccount.CheckingAcnt: curTypeOfAcnt = "Расчетный"; break;
+                case TypeOfAccount.SavingsAcnt: curTypeOfAcnt = "Сберегательный"; break;
+                case TypeOfAccount.InvestmentAcnt: curTypeOfAcnt = "Инвестиционный"; break;
+            }
             return curTypeOfAcnt;
+        }
+        /// <summary>
+        /// определение оператора "равно" для объектов типа BankAccount
+        /// </summary>
+        /// <param name="acnt_1">первый сравниваемый объект</param>
+        /// <param name="acnt_2">второй сравниваемый объект</param>
+        /// <returns></returns>
+        public static bool operator ==(BankAccount acnt_1, BankAccount acnt_2)
+        {
+            if (acnt_1 is null)
+                throw new ArgumentNullException($"счет {acnt_1} пуст");
+            if (acnt_2 is null)
+                throw new ArgumentNullException($"счет {acnt_2} пуст");
+            return (acnt_1.typeOfAcnt == acnt_2.typeOfAcnt && acnt_1.balance == acnt_2.balance);
+        }
+        /// <summary>
+        /// определение оператора "не равно" для объектов типа BankAccount
+        /// </summary>
+        /// <param name="acnt_1">>первый сравниваемый объект</param>
+        /// <param name="acnt_2">второй сравниваемый объект</param>
+        /// <returns></returns>
+        public static bool operator !=(BankAccount acnt_1, BankAccount acnt_2)
+        {
+            if (acnt_1 is null)
+                throw new ArgumentNullException($"счет {acnt_1} пуст");
+            if (acnt_2 is null)
+                throw new ArgumentNullException($"счет {acnt_2} пуст");
+            return (acnt_1.typeOfAcnt != acnt_2.typeOfAcnt || acnt_1.balance != acnt_2.balance);
+        }
+        /// <summary>
+        /// переопределение метода Equals для объектов типа BankAccount
+        /// </summary>
+        /// <param name="obj">объект сравнения</param>
+        /// <returns></returns>
+        public override bool Equals(object obj)
+        {
+            if (obj is null)
+                return false;
+            if (obj is BankAccount other_acnt)
+                return (this.typeOfAcnt == other_acnt.typeOfAcnt && this.balance == other_acnt.balance);
+            return false;
+        }
+        /// <summary>
+        /// переопределение метода ToString() для объектов типа BankAccount
+        /// </summary>
+        /// <returns>печать информации о счете</returns>
+        public override string ToString()
+        {
+            return $"Номер Вашего счета: {BankAccount.unicAcntNum} \r\n" +
+                $"Баланс Вашего счета: {this.balance} \r\n" +
+                $"Тип Вашего счета: {GetEnum(this.typeOfAcnt)}";
+        }
+        public override int GetHashCode()
+        {
+            return HashCode.Combine(Balance, TypeOfAccount, UnivAcntNum, AcntNum);
         }
     }
 }
