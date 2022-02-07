@@ -16,25 +16,8 @@ namespace Lesson_7
                     var s = file.ReadLine();
                     if (s.Length == 0)
                         continue;
-                    StringBuilder sb = new StringBuilder(s.Length);
-                    for (var i = 0; i < s.Length; i++)
-                    {
-                        if (!Char.IsLetter(s[i]))
-                            sb.Append(s[i]);
-                        else
-                        {
-                            if ((int)s[i] >= 65 && (int)s[i] <= 90)
-                                sb.Append((char)(90 - ((int)s[i]) - 65));
-                            else if ((int)s[i] >= 97 && (int)s[i] <= 122)
-                                sb.Append((char)(122 - ((int)s[i]) - 97));
-                            else if ((int)s[i] >= 192 && (int)s[i] <= 223)
-                                sb.Append((char)(223 - ((int)s[i]) - 192));
-                            else if ((int)s[i] >= 224 && (int)s[i] <= 255)
-                                sb.Append((char)(255 - ((int)s[i]) - 224));
-                        }
-                    }
-                    sb.Append("\r\n");
-                    File.AppendAllText(encodedByBCoderFilePath, sb.ToString());
+                    var encodedString = EncodeDecode(s);
+                    File.AppendAllText(encodedByBCoderFilePath, encodedString.ToString());
                 }
         }
         public void Decode(string filePathToDecode, string decodedByBCoderFilePath)
@@ -47,26 +30,32 @@ namespace Lesson_7
                     var s = file.ReadLine();
                     if (s.Length == 0)
                         continue;
-                    StringBuilder sb = new StringBuilder(s.Length);
-                    for (var i = 0; i < s.Length; i++)
-                    {
-                        if (!Char.IsLetter(s[i]))
-                            sb.Append(s[i]);
-                        else
-                        {
-                            if ((int)s[i] >= 65 && (int)s[i] <= 90)
-                                sb.Append((char)(90 - ((int)s[i]) - 65));
-                            else if ((int)s[i] >= 97 && (int)s[i] <= 122)
-                                sb.Append((char)(122 - ((int)s[i]) - 97));
-                            else if ((int)s[i] >= 192 && (int)s[i] <= 223)
-                                sb.Append((char)(223 - ((int)s[i]) - 192));
-                            else if ((int)s[i] >= 224 && (int)s[i] <= 255)
-                                sb.Append((char)(255 - ((int)s[i]) - 224));
-                        }
-                    }
-                    sb.Append("\r\n");
-                    File.AppendAllText(decodedByBCoderFilePath, sb.ToString());
+                    EncodeDecode(s);
+                    var decodedString = EncodeDecode(s);
+                    File.AppendAllText(decodedByBCoderFilePath, decodedString.ToString());
                 }
+        }
+        private static StringBuilder EncodeDecode (string s)
+        {
+            StringBuilder sb = new (s.Length);
+            for (var i = 0; i < s.Length; i++)
+            {
+                if (!Char.IsLetter(s[i]) || (int)s[i] == 1025 || (int)s[i] == 1105)
+                    sb.Append(s[i]);
+                else
+                {
+                    if ((int)s[i] >= 65 && (int)s[i] <= 90)
+                        sb.Append((char)(90 - ((int)s[i] - 65)));
+                    else if ((int)s[i] >= 97 && (int)s[i] <= 122)
+                        sb.Append((char)(122 - ((int)s[i] - 97)));
+                    else if ((int)s[i] >= 1040 && (int)s[i] <= 1071)
+                        sb.Append((char)(1071 - ((int)s[i] - 1040)));
+                    else if ((int)s[i] >= 1072 && (int)s[i] <= 1103)
+                        sb.Append((char)(1103 - ((int)s[i] - 1072)));
+                }
+            }
+            sb.Append("\r\n");
+            return sb;
         }
     }
 }
