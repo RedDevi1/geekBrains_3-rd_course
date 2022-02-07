@@ -8,7 +8,7 @@ namespace Lesson_7
 {
     interface ICoder
     {
-        public string Encode(string filePathToCode, string encodedFilePath);
-        public string Decode(string filePathToCode, string decodedFilePath);
+        public void Encode(string filePathToCode, string encodedFilePath);
+        public void Decode(string filePathToDecode, string decodedFilePath);
     }
 }
